@@ -1,39 +1,26 @@
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+import java.nio.ByteBuffer
+
 fun main() {
+    byteBufferExample()
+}
 
-    //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-    // to see how IntelliJ IDEA suggests fixing it.
-    println("Hello World")
-    val x = 2
-    val y = 3
-    val z = x + y
-    println("$x + $y = $z")
+fun byteBufferExample() {
+    // A ByteBuffer manages a memory buffer internally
+    val buffer = ByteBuffer.allocate(4)
 
-    val thread1 = Thread {
-        for (i in 1..1000) {
-            println("Thread 1: $i")
-            Thread.sleep(10)
-        }
+    // Write to buffer (moves position forward automatically)
+    buffer.put(10)
+    buffer.put(20)
+    buffer.put(30)
+    buffer.put(40)
+
+    // Prepare buffer for reading
+    buffer.flip()
+
+    // Read data in order
+    while (buffer.hasRemaining()) {
+        println(buffer.get())
     }
-
-    val thread2 = Thread {
-        for (i in 1..1000) {
-            println("Thread 2: $i")
-            Thread.sleep(10)
-        }
-    }
-    // Set thread priorities
-    thread1.priority = Thread.MAX_PRIORITY
-    thread2.priority = Thread.MIN_PRIORITY
-
-    // Start both threads
-    thread1.start()
-    thread2.start()
-
-    // Wait for both to finish
-    thread1.join()
-    thread2.join()
-
-    println("Both threads finished")
 }
